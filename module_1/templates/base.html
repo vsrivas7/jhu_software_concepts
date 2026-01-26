@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}My Website{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        nav {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+        }
+        nav a {
+            margin-left: 15px;
+            text-decoration: none;
+            color: black;
+        }
+        nav a.active {
+            color: white;
+            background-color: #007acc;
+            padding: 6px 10px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="/" class="{% if active == 'home' %}active{% endif %}">Home</a>
+    <a href="/projects" class="{% if active == 'projects' %}active{% endif %}">Projects</a>
+    <a href="/contact" class="{% if active == 'contact' %}active{% endif %}">Contact</a>
+</nav>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>
