@@ -1,0 +1,4 @@
+# Python requirements
+# Standard library only - no external dependencies
+# Python 3.10+
+# Modules used: urllib, json, re, html, datetime, typing

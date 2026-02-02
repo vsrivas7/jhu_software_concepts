@@ -3,6 +3,20 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-<h1>Welcome to my personal website</h1>
-<p>This is the home page.</p>
+<div class="home-layout">
+    <div class="bio">
+        <h1>Vishal Srivastava</h1>
+        <h3>AI Risk & Governance Professional</h3>
+
+        <p>
+            I work on AI risk, governance, and model evaluation in regulated
+            environments. This website showcases my coursework and Python
+            projects built using Flask.
+        </p>
+    </div>
+
+    <div class="profile-image">
+        <img src="{{ url_for('static', filename='profile.jpg') }}" alt="Profile photo">
+    </div>
+</div>
 {% endblock %}
