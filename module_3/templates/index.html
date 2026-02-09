@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Grad Café Data Analysis</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        h1 { color: #003366; }
+        .btn { padding: 10px 20px; margin: 5px; background: #003366; color: white; border: none; cursor: pointer; }
+        .btn:hover { background: #0055aa; }
+        .card { border: 1px solid #ccc; padding: 15px; margin: 15px 0; }
+    </style>
+</head>
+<body>
+
+<h1>Grad Café Data Analysis</h1>
+
+<form method="POST" action="/pull-data">
+    <button class="btn">Pull Data</button>
+</form>
+
+<form method="POST" action="/update-analysis">
+    <button class="btn">Update Analysis</button>
+</form>
+
+<div class="card">
+    <h3>1. Fall 2026 Applicants</h3>
+    {{ results.fall_2026 }}
+</div>
+
+<div class="card">
+    <h3>2. International Students (%)</h3>
+    {{ results.international_pct }}
+</div>
+
+<div class="card">
+    <h3>3. Average Scores (GPA, GRE Q, GRE V, GRE AW)</h3>
+    {{ results.averages }}
+</div>
+
+<div class="card">
+    <h3>4. Avg GPA (American, Fall 2026)</h3>
+    {{ results.american_gpa_2026 }}
+</div>
+
+<div class="card">
+    <h3>5. Fall 2025 Acceptance %</h3>
+    {{ results.fall_2025_accept_pct }}
+</div>
+
+<div class="card">
+    <h3>6. Average GPA (Accepted, Fall 2026)</h3>
+    {{ results.accepted_gpa_2026 }}
+</div>
+
+<div class="card">
+    <h3>7. JHU MS Computer Science Applicants</h3>
+    {{ results.jhu_ms_cs }}
+</div>
+
+<div class="card">
+    <h3>8. 2026 PhD CS Acceptances (Raw Fields)</h3>
+    {{ results.phd_cs_accept_raw }}
+</div>
+
+<div class="card">
+    <h3>9. 2026 PhD CS Acceptances (LLM Fields)</h3>
+    {{ results.phd_cs_accept_llm }}
+</div>
+
+<div class="card">
+    <h3>10A. Acceptance Rate by Degree Type</h3>
+    <ul>
+        {% for row in results.acceptance_rate_by_degree %}
+            <li>{{ row[0] }} — {{ row[1] }}%</li>
+        {% endfor %}
+    </ul>
+</div>
+
+<div class="card">
+    <h3>10B. Average GPA by Degree Type</h3>
+    <ul>
+        {% for row in results.gpa_by_degree %}
+            <li>{{ row[0] }} — {{ row[1] }}</li>
+        {% endfor %}
+    </ul>
+</div>
+
+</body>
+</html>
