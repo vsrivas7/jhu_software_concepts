@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.coverage
+.DS_Store
+gradcafe_data.json
+
