@@ -10,7 +10,13 @@ def test_app_factory_creates_app():
 
 @pytest.mark.web
 def test_analysis_page_loads():
-    app = create_app({"TESTING": True})
+    def fake_query():
+        return {"count": 0}
+
+    app = create_app(
+        {"TESTING": True},
+        query_fn=fake_query
+    )
     client = app.test_client()
 
     response = client.get("/analysis")
@@ -20,7 +26,13 @@ def test_analysis_page_loads():
 
 @pytest.mark.web
 def test_analysis_page_contains_required_elements():
-    app = create_app({"TESTING": True})
+    def fake_query():
+        return {"count": 0}
+
+    app = create_app(
+        {"TESTING": True},
+        query_fn=fake_query
+    )
     client = app.test_client()
 
     response = client.get("/analysis")
@@ -34,10 +46,6 @@ def test_analysis_page_contains_required_elements():
 
 @pytest.mark.web
 def test_analysis_handles_none_query():
-    """
-    Forces the fallback branch:
-    data = app.query_fn() or {}
-    """
     def fake_query():
         return None
 

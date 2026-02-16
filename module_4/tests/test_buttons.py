@@ -30,8 +30,14 @@ def test_pull_data_success():
 
 
 @pytest.mark.buttons
-def test_update_analysis_success(monkeypatch):
-    app = create_app({"TESTING": True})
+def test_update_analysis_success():
+    def fake_query():
+        return {"count": 0}
+
+    app = create_app(
+        {"TESTING": True},
+        query_fn=fake_query
+    )
     client = app.test_client()
 
     response = client.post("/update-analysis")
@@ -63,8 +69,9 @@ def test_busy_state_blocks_update():
     assert response.status_code == 409
     assert response.json["busy"] is True
 
+
 @pytest.mark.buttons
-def test_pull_data_error_path(monkeypatch):
+def test_pull_data_error_path():
     def fake_scraper():
         raise Exception("Scraper failed")
 
@@ -81,7 +88,7 @@ def test_pull_data_error_path(monkeypatch):
 
 
 @pytest.mark.buttons
-def test_update_analysis_error_path(monkeypatch):
+def test_update_analysis_error_path():
     def fake_query():
         raise Exception("Query failed")
 
