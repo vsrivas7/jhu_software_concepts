@@ -1,6 +1,8 @@
 name: Tests
 
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
 
 jobs:
   test:
@@ -40,6 +42,4 @@ jobs:
 
       - name: Run tests
         run: |
-          cd module_4
-          pytest
-
+          pytest module_4/tests
