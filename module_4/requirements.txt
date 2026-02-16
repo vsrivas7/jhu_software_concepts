@@ -4,4 +4,6 @@ requests
 beautifulsoup4
 pytest
 pytest-cov
+python-dotenv
+lxml
 
