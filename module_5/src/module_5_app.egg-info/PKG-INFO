@@ -1,0 +1,14 @@
+Metadata-Version: 2.4
+Name: module_5_app
+Version: 1.0.0
+Summary: Secure Flask application for GradCafe data analysis
+Author: Vishal Srivastava
+Requires-Python: >=3.9
+Requires-Dist: flask
+Requires-Dist: psycopg[binary]
+Requires-Dist: requests
+Requires-Dist: beautifulsoup4
+Dynamic: author
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
