@@ -86,7 +86,7 @@ jobs:
       - name: Generate dependency graph
         working-directory: module_5
         run: |
-          pydeps src/flask_app.py --noshow -T svg -o dependency.svg
+          pydeps src --noshow -T svg -o dependency.svg
 
       - name: Verify dependency.svg exists
         working-directory: module_5
