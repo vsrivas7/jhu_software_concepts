@@ -1,19 +1,35 @@
-from setuptools import setup, find_packages
+"""
+setup.py — makes module_5 an installable Python package.
+
+Why this matters:
+  - `pip install -e .` makes src/ importable from anywhere without sys.path hacks.
+  - Ensures consistent imports in local development, CI, and production.
+  - uv can read install_requires to sync environments automatically.
+  - Eliminates "works on my machine" import errors across different environments.
+"""
+
+from setuptools import find_packages, setup
 
 setup(
-    name="module_5_app",
-    version="1.0.0",
-    description="Secure Flask application for GradCafe data analysis",
-    author="Vishal Srivastava",
-    packages=find_packages(where="src"),
-    package_dir={"": "src"},
+    name="gradcafe-app",
+    version="0.1.0",
+    description="GradCafe scraper and Flask web application",
+    packages=find_packages(exclude=["tests*"]),
     python_requires=">=3.9",
     install_requires=[
-        "flask",
+        "Flask",
         "psycopg[binary]",
         "requests",
         "beautifulsoup4",
+        "python-dotenv",
+        "lxml",
     ],
-    include_package_data=True,
-    zip_safe=False,
+    extras_require={
+        "dev": [
+            "pytest",
+            "pytest-cov",
+            "pylint",
+            "pydeps",
+        ]
+    },
 )

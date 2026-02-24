@@ -1,9 +1,17 @@
+# Runtime dependencies
 Flask
-psycopg
+psycopg[binary]
 requests
 beautifulsoup4
-pytest
-pytest-cov
 python-dotenv
 lxml
 
+# Testing
+pytest
+pytest-cov
+
+# Linting
+pylint
+
+# Dependency graph
+pydeps

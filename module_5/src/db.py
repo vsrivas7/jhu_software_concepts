@@ -1,21 +1,22 @@
-"""Database connection utilities."""
+"""
+Shared database connection helper.
+Centralises get_connection() to avoid duplication across modules.
+"""
 
 import os
+
 import psycopg
 
 
 def get_connection():
-    """Create and return a PostgreSQL connection using environment variables."""
-    db_host = os.getenv("DB_HOST")
-    db_port = os.getenv("DB_PORT")
-    db_name = os.getenv("DB_NAME")
-    db_user = os.getenv("DB_USER")
-    db_password = os.getenv("DB_PASSWORD")
-
-    return psycopg.connect(
-        host=db_host,
-        port=db_port,
-        dbname=db_name,
-        user=db_user,
-        password=db_password,
+    """Return a psycopg connection using environment variables."""
+    database_url = os.getenv("DATABASE_URL")
+    if database_url:
+        return psycopg.connect(database_url)  # pylint: disable=no-member
+    return psycopg.connect(  # pylint: disable=no-member
+        dbname=os.getenv("DB_NAME", "gradcafe"),
+        host=os.getenv("DB_HOST", "localhost"),
+        port=int(os.getenv("DB_PORT", "5432")),
+        user=os.getenv("DB_USER", ""),
+        password=os.getenv("DB_PASSWORD", ""),
     )
