@@ -1,0 +1,44 @@
+[
+  {
+    "university": "MIT",
+    "program": "Computer Science",
+    "degree": "PhD",
+    "decision": "Accepted",
+    "season": "Fall 2026",
+    "applicant_status": "International",
+    "gpa": "3.9",
+    "added_on": "2026-01-15",
+    "result_id": "test-001",
+    "page_scraped": 1,
+    "us_or_international": "International",
+    "term": "Fall 2026"
+  },
+  {
+    "university": "Stanford",
+    "program": "Machine Learning",
+    "degree": "MS",
+    "decision": "Rejected",
+    "season": "Fall 2026",
+    "applicant_status": "American",
+    "gpa": "3.7",
+    "added_on": "2026-01-20",
+    "result_id": "test-002",
+    "page_scraped": 1,
+    "us_or_international": "American",
+    "term": "Fall 2026"
+  },
+  {
+    "university": "Carnegie Mellon",
+    "program": "Software Engineering",
+    "degree": "MS",
+    "decision": "Accepted",
+    "season": "Fall 2026",
+    "applicant_status": "American",
+    "gpa": "3.8",
+    "added_on": "2026-02-01",
+    "result_id": "test-003",
+    "page_scraped": 1,
+    "us_or_international": "American",
+    "term": "Fall 2026"
+  }
+]

@@ -1,0 +1,18 @@
+# Runtime dependencies
+Flask
+psycopg[binary]
+requests
+beautifulsoup4
+python-dotenv
+lxml
+
+# Testing
+pytest
+pytest-cov
+
+# Linting
+pylint
+
+# Dependency graph
+pydeps
+pika

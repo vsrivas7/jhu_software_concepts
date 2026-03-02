@@ -1,0 +1,130 @@
+name: CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  # ────────────────────────────────────────────────
+  # Job 1 — Pylint (must score 10/10)
+  # ────────────────────────────────────────────────
+  lint:
+    name: Pylint (10/10 required)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        working-directory: module_5
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Run Pylint
+        working-directory: module_5
+        run: |
+          pylint src/ --fail-under=10
+
+  # ────────────────────────────────────────────────
+  # Job 2 — Pytest
+  # ────────────────────────────────────────────────
+  test:
+    name: Pytest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        working-directory: module_5
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Run tests with coverage
+        working-directory: module_5
+        run: |
+          pytest tests/ -v --cov=src --cov-report=term-missing
+
+  # ────────────────────────────────────────────────
+  # Job 3 — Dependency graph (pydeps + Graphviz)
+  # ────────────────────────────────────────────────
+  dependency-graph:
+    name: Generate dependency.svg
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+
+      - name: Install Graphviz
+        run: sudo apt-get install -y graphviz
+
+      - name: Install dependencies
+        working-directory: module_5
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -e .
+
+      - name: Generate dependency graph
+        working-directory: module_5
+        run: |
+          pydeps src --noshow -T svg -o dependency.svg
+
+      - name: Verify dependency.svg exists
+        working-directory: module_5
+        run: |
+          test -f dependency.svg || (echo "dependency.svg not generated!" && exit 1)
+
+      - name: Upload dependency graph artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-graph
+          path: module_5/dependency.svg
+
+  # ────────────────────────────────────────────────
+  # Job 4 — Snyk dependency scan
+  # ────────────────────────────────────────────────
+  snyk:
+    name: Snyk Security Scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.9"
+
+      - name: Install dependencies
+        working-directory: module_5
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install Snyk CLI
+        run: npm install -g snyk
+
+      - name: Run Snyk test
+        working-directory: module_5
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        run: |
+          snyk test --file=requirements.txt --package-manager=pip || true

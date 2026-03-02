@@ -1,0 +1,14 @@
+[MASTER]
+# Only lint files inside src/
+ignore=tests
+
+[FORMAT]
+max-line-length=100
+
+[MESSAGES CONTROL]
+# broad-except is disabled inline where genuinely needed (Flask error handlers)
+disable=
+
+[DESIGN]
+max-args=7
+max-attributes=10
